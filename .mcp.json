@@ -1,14 +1,26 @@
 {
   "mcpServers": {
-    "google-workspace": {
+    "google-workspace-business": {
       "command": "uvx",
       "args": [
         "google_workspace_mcp",
         "--single-user"
       ],
       "env": {
-        "GOOGLE_OAUTH_CLIENT_ID": "${GOOGLE_OAUTH_CLIENT_ID}",
-        "GOOGLE_OAUTH_CLIENT_SECRET": "${GOOGLE_OAUTH_CLIENT_SECRET}",
+        "GOOGLE_OAUTH_CLIENT_ID": "${GOOGLE_OAUTH_CLIENT_ID_BUSINESS}",
+        "GOOGLE_OAUTH_CLIENT_SECRET": "${GOOGLE_OAUTH_CLIENT_SECRET_BUSINESS}",
+        "OAUTHLIB_INSECURE_TRANSPORT": "1"
+      }
+    },
+    "google-workspace-personal": {
+      "command": "uvx",
+      "args": [
+        "google_workspace_mcp",
+        "--single-user"
+      ],
+      "env": {
+        "GOOGLE_OAUTH_CLIENT_ID": "${GOOGLE_OAUTH_CLIENT_ID_PERSONAL}",
+        "GOOGLE_OAUTH_CLIENT_SECRET": "${GOOGLE_OAUTH_CLIENT_SECRET_PERSONAL}",
         "OAUTHLIB_INSECURE_TRANSPORT": "1"
       }
     }

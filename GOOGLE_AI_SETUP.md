@@ -4,13 +4,17 @@ This project is configured with Google Workspace MCP tools and Google AI Studio 
 
 ## Configuration Overview
 
-### 1. Google Workspace MCP Server
+### 1. Google Workspace MCP Servers
 
 **Location**: `.mcp.json` in project root
 
+**Multiple Accounts Configured**:
+- `google-workspace-business` - Business account tools
+- `google-workspace-personal` - Personal account tools (charlesmartinedd@gmail.com)
+
 **Credentials**: Configured via environment variables (see Setup section below)
 
-**Available Tools**:
+**Available Tools** (for each account):
 - Gmail (read, send, manage emails)
 - Google Calendar (create, update events)
 - Google Drive (file management)
@@ -50,12 +54,16 @@ response = model.generate_content("Your prompt here")
 
 ## First-Time Setup
 
-### Step 1: Enable MCP Server
+### Step 1: Enable MCP Servers
 
-The MCP server is already configured in `.mcp.json`. When you first run Claude Code, it will:
-1. Launch the Google Workspace MCP server using `uvx`
-2. Prompt you to authenticate with Google OAuth
-3. Open a browser window for Google login
+Two MCP servers are configured in `.mcp.json`:
+- **Business Account** (`google-workspace-business`)
+- **Personal Account** (`google-workspace-personal`)
+
+When you first run Claude Code, it will:
+1. Launch both Google Workspace MCP servers using `uvx`
+2. Prompt you to authenticate each account with Google OAuth
+3. Open browser windows for Google login (once per account)
 4. Store your authentication tokens locally
 
 ### Step 2: Verify MCP Tools
@@ -64,14 +72,20 @@ Run these commands in Claude Code:
 ```
 /mcp list
 ```
-This will show all available MCP servers and their status.
+This will show both Google Workspace servers and their status.
 
 ### Step 3: Test Google Workspace Access
 
-Try a simple command:
+You can work with both accounts. The tools will be available from both servers:
 ```
-Can you list my Google Drive files?
+Can you list my Google Drive files from my business account?
 ```
+
+### Step 4: Managing Multiple Accounts
+
+Both accounts are available simultaneously. Claude will use tools from both servers. If you need to specify which account, you can:
+- Enable/disable specific servers using `/mcp enable` or `/mcp disable`
+- Mention the account in your prompt (e.g., "use my personal account")
 
 ## Using the Google Content Creator Agent
 
@@ -151,22 +165,43 @@ The Google Content Creator agent can:
 ### Windows (PowerShell):
 ```powershell
 # Set environment variables for current session
-$env:GOOGLE_OAUTH_CLIENT_ID="your-client-id-here.apps.googleusercontent.com"
-$env:GOOGLE_OAUTH_CLIENT_SECRET="your-client-secret-here"
+# Business Account
+$env:GOOGLE_OAUTH_CLIENT_ID_BUSINESS="your-business-client-id.apps.googleusercontent.com"
+$env:GOOGLE_OAUTH_CLIENT_SECRET_BUSINESS="your-business-client-secret"
+
+# Personal Account
+$env:GOOGLE_OAUTH_CLIENT_ID_PERSONAL="your-personal-client-id.apps.googleusercontent.com"
+$env:GOOGLE_OAUTH_CLIENT_SECRET_PERSONAL="your-personal-client-secret"
+
+# Google AI Studio
 $env:GOOGLE_AI_API_KEY="your-google-ai-api-key-here"
 ```
 
 ### Windows (Command Prompt):
 ```cmd
-set GOOGLE_OAUTH_CLIENT_ID=your-client-id-here.apps.googleusercontent.com
-set GOOGLE_OAUTH_CLIENT_SECRET=your-client-secret-here
+REM Business Account
+set GOOGLE_OAUTH_CLIENT_ID_BUSINESS=your-business-client-id.apps.googleusercontent.com
+set GOOGLE_OAUTH_CLIENT_SECRET_BUSINESS=your-business-client-secret
+
+REM Personal Account
+set GOOGLE_OAUTH_CLIENT_ID_PERSONAL=your-personal-client-id.apps.googleusercontent.com
+set GOOGLE_OAUTH_CLIENT_SECRET_PERSONAL=your-personal-client-secret
+
+REM Google AI Studio
 set GOOGLE_AI_API_KEY=your-google-ai-api-key-here
 ```
 
 ### Linux/Mac (Bash):
 ```bash
-export GOOGLE_OAUTH_CLIENT_ID="your-client-id-here.apps.googleusercontent.com"
-export GOOGLE_OAUTH_CLIENT_SECRET="your-client-secret-here"
+# Business Account
+export GOOGLE_OAUTH_CLIENT_ID_BUSINESS="your-business-client-id.apps.googleusercontent.com"
+export GOOGLE_OAUTH_CLIENT_SECRET_BUSINESS="your-business-client-secret"
+
+# Personal Account
+export GOOGLE_OAUTH_CLIENT_ID_PERSONAL="your-personal-client-id.apps.googleusercontent.com"
+export GOOGLE_OAUTH_CLIENT_SECRET_PERSONAL="your-personal-client-secret"
+
+# Google AI Studio
 export GOOGLE_AI_API_KEY="your-google-ai-api-key-here"
 ```
 
