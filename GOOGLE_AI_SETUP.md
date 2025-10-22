@@ -111,7 +111,7 @@ The Google Content Creator agent can:
 - ✅ Organize files in Google Drive folders
 - ✅ Structure content following best practices
 - ✅ Use AI to enhance content quality and creativity
-- ✅ Query available data sources (like RAG systems) if present
+- ✅ Research topics using web search capabilities
 
 ## Workflow for Content Creation
 
