@@ -1,0 +1,9 @@
+langchain==0.1.9
+langchain-community==0.0.10
+pypdf==3.17.1
+faiss-cpu==1.7.4
+sentence-transformers==2.2.2
+python-dotenv==1.0.0
+pydantic==2.5.0
+streamlit>=1.30.0
+langchain-huggingface>=0.0.1

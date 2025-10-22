@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python main.py:*)",
+      "Bash(python -m http.server:*)",
+      "Bash(start cmd /k \"python -m http.server 8000 --bind 127.0.0.1\")",
+      "Bash(npx -y serve -l 3000)",
+      "Bash(timeout:*)"
+    ]
+  },
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "claude-flow@alpha",
+    "ruv-swarm",
+    "flow-nexus",
+    "agentic-payments"
+  ]
+}

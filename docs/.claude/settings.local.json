@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Users/MarieLexisDad/ai_projects/projects/claudeflow/rag/**)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

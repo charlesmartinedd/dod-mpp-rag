@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DoD Mentor-Protégé Program - A-Z Glossary</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #f5f5f5;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #1a3a52 0%, #2d5a7b 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        header h1 {
+            font-size: 1.8em;
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+
+        header p {
+            font-size: 0.95em;
+            opacity: 0.9;
+        }
+
+        /* Instructions Section */
+        .instructions {
+            background: #e8f1f7;
+            border-left: 4px solid #0d7377;
+            padding: 15px 20px;
+            margin: 15px 20px;
+            border-radius: 6px;
+            flex-shrink: 0;
+        }
+
+        .instructions p {
+            margin: 0;
+            color: #1a3a52;
+            font-size: 0.95em;
+            font-weight: 500;
+        }
+
+        /* Main Container */
+        .main-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Grid Container */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 12px;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        /* Letter Box */
+        .letter-box {
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, #2d5a7b 0%, #1a3a52 100%);
+            border: 2px solid #0d7377;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .letter-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.1);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .letter-box:hover:not(.disabled) {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(135deg, #3d6a8b 0%, #2a4a62 100%);
+        }
+
+        .letter-box:hover:not(.disabled)::before {
+            opacity: 1;
+        }
+
+        .letter-box.disabled {
+            background: linear-gradient(135deg, #b0b0b0 0%, #808080 100%);
+            border-color: #999;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        .letter-box span {
+            font-size: 2.8em;
+            font-weight: 700;
+            color: white;
+            z-index: 1;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            max-width: 450px;
+            width: 90%;
+            max-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            animation: popUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            z-index: 101;
+        }
+
+        @keyframes popUp {
+            from {
+                transform: scale(0.7) translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1) translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #1a3a52 0%, #2d5a7b 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px 12px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            font-size: 1.8em;
+            font-weight: 700;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5em;
+            cursor: pointer;
+            padding: 0;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background 0.2s ease;
+        }
+
+        .close-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .modal-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .terms-count {
+            font-size: 0.85em;
+            color: #666;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .terms-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .term-item {
+            padding: 12px 15px;
+            background: #f9fafb;
+            border-left: 4px solid #0d7377;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            color: #1a3a52;
+        }
+
+        .term-item:hover {
+            background: #e8f1f7;
+            transform: translateX(5px);
+            box-shadow: 0 2px 8px rgba(13, 115, 119, 0.15);
+        }
+
+        /* Definition Panel */
+        .definition-panel {
+            position: fixed;
+            right: -500px;
+            top: 0;
+            width: 400px;
+            height: 100%;
+            background: white;
+            box-shadow: -4px 0 12px rgba(0, 0, 0, 0.2);
+            transition: right 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            z-index: 102;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .definition-panel.active {
+            right: 0;
+        }
+
+        .definition-header {
+            background: linear-gradient(135deg, #1a3a52 0%, #2d5a7b 100%);
+            color: white;
+            padding: 20px;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .definition-header h3 {
+            font-size: 1.4em;
+            margin-bottom: 5px;
+            word-break: break-word;
+            padding-right: 30px;
+        }
+
+        .term-type-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.3);
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            margin-top: 8px;
+        }
+
+        .definition-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .definition-text {
+            margin-bottom: 15px;
+            line-height: 1.6;
+            color: #555;
+            font-size: 0.95em;
+        }
+
+        .definition-text strong {
+            color: #1a3a52;
+        }
+
+        .example-box {
+            background: #e8f1f7;
+            border-left: 4px solid #0d7377;
+            padding: 12px;
+            border-radius: 6px;
+            margin-top: 15px;
+            font-size: 0.9em;
+            color: #333;
+            line-height: 1.5;
+        }
+
+        .example-label {
+            font-weight: 600;
+            color: #0d7377;
+            margin-bottom: 5px;
+        }
+
+        .close-panel-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.3);
+            border: none;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s ease;
+        }
+
+        .close-panel-btn:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .grid-container {
+                grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+                gap: 10px;
+                padding: 10px;
+            }
+
+            .letter-box span {
+                font-size: 2.2em;
+            }
+
+            .modal-content {
+                max-width: 90vw;
+                max-height: 70vh;
+            }
+
+            .definition-panel {
+                width: 100%;
+            }
+
+            .main-container {
+                padding: 10px;
+            }
+
+            .instructions {
+                margin: 10px;
+                padding: 12px 15px;
+                font-size: 0.9em;
+            }
+        }
+
+        /* Scrollbar Styling */
+        .modal-body::-webkit-scrollbar,
+        .definition-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .modal-body::-webkit-scrollbar-track,
+        .definition-content::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .modal-body::-webkit-scrollbar-thumb,
+        .definition-content::-webkit-scrollbar-thumb {
+            background: #2d5a7b;
+            border-radius: 4px;
+        }
+
+        .modal-body::-webkit-scrollbar-thumb:hover,
+        .definition-content::-webkit-scrollbar-thumb:hover {
+            background: #1a3a52;
+        }
+        .speak-btn {
+            background: #e8f5f5;
+            border: 2px solid #0d7377;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1.3em;
+            color: #0d7377;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .speak-btn:hover {
+            background: #0d7377;
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .speak-btn:active {
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>📚 DoD Mentor-Protégé Program</h1>
+        <p>Interactive A-Z Glossary</p>
+    </header>
+
+    <div class="instructions">
+        <p>👉 <strong>Click any letter</strong> to view terms starting with that letter. Gray letters have no terms available.</p>
+    </div>
+
+    <div class="main-container">
+        <div class="grid-container" id="gridContainer"></div>
+    </div>
+
+    <!-- Modal for Terms List -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalLetter"></h2>
+                <button class="close-btn" id="closeModalBtn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="terms-count" id="termsCount"></div>
+                <div class="terms-list" id="termsList"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Definition Side Panel -->
+    <div class="definition-panel" id="definitionPanel">
+        <div class="definition-header">
+            <button class="close-panel-btn" id="closePanelBtn">&times;</button>
+            <div style="display: flex; align-items: center; gap: 12px; width: 100%;">
+                <h3 id="panelTermTitle" style="flex: 1; margin: 0;"></h3>
+                <button id="speakBtn" class="speak-btn" title="Click to pronounce this term">🔊</button>
+            </div>
+            <div class="term-type-badge" id="termTypeBadge"></div>
+        </div>
+        <div class="definition-content">
+            <div class="definition-text" id="panelDefinition"></div>
+            <div class="example-box" id="exampleBox"></div>
+        </div>
+    </div>
+
+    <script>
+        // Comprehensive glossary with 80+ terms covering acronyms and all key concepts
+        const glossaryData = [
+            {
+                term: "10 U.S.C. Section 4902",
+                type: "Acronym",
+                definition: "The federal statute that authorizes and governs the Department of Defense Mentor-Protégé Program, establishing the legal framework for the program's operations.",
+                example: "Program Managers must ensure all agreements comply with 10 U.S.C. Section 4902 requirements."
+            },
+            {
+                term: "Advance Agreement",
+                type: "Financial",
+                definition: "A pre-arranged financial arrangement between DoD and a Mentor firm establishing reimbursement terms, rates, and conditions for developmental assistance.",
+                example: "A Mentor negotiates an advance agreement to receive 75% cost reimbursement for training provided to the Protégé."
+            },
+            {
+                term: "Agreement Closeout",
+                type: "Process",
+                definition: "The final administrative actions completed when a Mentor-Protégé Agreement ends, including final reporting, settlement of obligations, and documentation.",
+                example: "At agreement closeout, both firms submit final compliance reports and outstanding invoices are resolved."
+            },
+            {
+                term: "Agreement Development",
+                type: "Process",
+                definition: "The process of creating and structuring the formal Mentor-Protégé Agreement including objectives, timeline, and financial terms.",
+                example: "Agreement development includes defining developmental assistance activities and establishing performance metrics."
+            },
+            {
+                term: "Agreement Modification",
+                type: "Process",
+                definition: "A formal change to an existing Mentor-Protégé Agreement's terms, timeline, or financial arrangements approved by DoD.",
+                example: "An agreement modification extended the term from 24 to 36 months to allow additional developmental activities."
+            },
+            {
+                term: "Agreement Termination",
+                type: "Process",
+                definition: "The official end of a Mentor-Protégé Agreement, which may occur by mutual agreement, completion, or for cause due to non-compliance.",
+                example: "The agreement was terminated after 24 months when the Protégé achieved all developmental objectives."
+            },
+            {
+                term: "Annual Report",
+                type: "Process",
+                definition: "A comprehensive yearly documentation submitted by Mentor and Protégé firms detailing activities, expenditures, performance metrics, and progress.",
+                example: "The annual report documented $120,000 in developmental costs, training hours, and three new contracts awarded to the Protégé."
+            },
+            {
+                term: "Appendix I",
+                type: "Document",
+                definition: "The policy and procedures document for the DoD Mentor-Protégé Program under DFARS, containing detailed regulations and guidance.",
+                example: "Appendix I Section 105.1 outlines mentor firm eligibility requirements."
+            },
+            {
+                term: "Application",
+                type: "Process",
+                definition: "The formal submission by a Mentor and Protégé firm to DoD requesting approval to establish a Mentor-Protégé Agreement.",
+                example: "The application included the proposed approach, financial plan, and commitment letters from both firms."
+            },
+            {
+                term: "Audit Trail",
+                type: "Compliance",
+                definition: "Complete documented record of all activities, communications, and transactions related to a Mentor-Protégé Agreement.",
+                example: "Compliance audits review the audit trail to verify all developmental assistance was properly documented and costs were allowable."
+            },
+            {
+                term: "Award Management",
+                type: "Process",
+                definition: "The oversight and administration of contract awards received by Mentor or Protégé firms during the agreement period.",
+                example: "Award management includes tracking all new contracts won by the Protégé to measure program impact."
+            },
+            {
+                term: "Bid",
+                type: "Process",
+                definition: "A formal proposal submitted by a firm in response to a government solicitation for contracts.",
+                example: "The Protégé submitted a competitive bid for a supply contract and was selected as the award winner."
+            },
+            {
+                term: "Business Development",
+                type: "Process",
+                definition: "Strategic activities to identify, pursue, and secure new business opportunities and contracts.",
+                example: "Mentor provides business development assistance by introducing the Protégé to potential government customers."
+            },
+            {
+                term: "Capability Assessment",
+                type: "Process",
+                definition: "An evaluation of a firm's current skills, resources, and capacity to perform specific types of work.",
+                example: "A capability assessment identified gaps in the Protégé's manufacturing quality systems."
+            },
+            {
+                term: "Capability Enhancement",
+                type: "Process",
+                definition: "The process of improving a Protégé firm's abilities, skills, systems, and resources to become more competitive.",
+                example: "Capability enhancement activities included ISO 9001 certification training and supply chain optimization."
+            },
+            {
+                term: "Certification",
+                type: "Process",
+                definition: "Official qualification recognizing that a firm meets specific standards or requirements (e.g., ISO 9001, AS9100, SBA certification).",
+                example: "The Protégé obtained ISO 9001 certification as part of the developmental assistance plan."
+            },
+            {
+                term: "Co-Proposal",
+                type: "Process",
+                definition: "A bid or proposal submitted jointly by Mentor and Protégé firms in response to a government solicitation.",
+                example: "Mentor and Protégé submitted a co-proposal offering complementary technical expertise to win a major contract."
+            },
+            {
+                term: "Compliance Audit",
+                type: "Compliance",
+                definition: "A formal review by DoD or independent auditor to verify firms are meeting agreement terms and regulatory requirements.",
+                example: "The annual compliance audit verified financial records and confirmed developmental activities were completed as documented."
+            },
+            {
+                term: "Compliance Monitoring",
+                type: "Compliance",
+                definition: "Ongoing supervision and verification that Mentor and Protégé firms are meeting all agreement obligations.",
+                example: "Program Managers conduct quarterly compliance monitoring reviews with both firms."
+            },
+            {
+                term: "Contract Administration",
+                type: "Process",
+                definition: "The management and oversight of government contracts including performance monitoring, payment, and compliance.",
+                example: "Contract administration includes ensuring the Protégé delivers quality performance on all awarded contracts."
+            },
+            {
+                term: "Contract Award",
+                type: "Process",
+                definition: "The official government decision to give a company a contract to perform work or supply products.",
+                example: "The Protégé received a $2 million contract award for providing technical support services."
+            },
+            {
+                term: "Corrective Action Plan",
+                type: "Compliance",
+                definition: "A documented plan created when a firm fails to meet requirements, outlining steps, timelines, and responsible parties to restore compliance.",
+                example: "A corrective action plan was implemented requiring weekly check-ins after late financial reporting."
+            },
+            {
+                term: "Cost Reimbursement",
+                type: "Financial",
+                definition: "A funding mechanism where DoD reimburses a Mentor firm for actual costs incurred in providing developmental assistance.",
+                example: "The Mentor firm received full cost reimbursement of $75,000 for training expenses based on the advance agreement."
+            },
+            {
+                term: "Critical Path",
+                type: "Process",
+                definition: "The sequence of key milestones and activities in the agreement that determine the overall timeline.",
+                example: "The critical path included quality system implementation (6 months) followed by customer qualification (3 months)."
+            },
+            {
+                term: "DFARS",
+                type: "Acronym",
+                definition: "Defense Federal Acquisition Regulation Supplement – DoD-specific rules and procedures supplementing the Federal Acquisition Regulation.",
+                example: "Mentor-Protégé Agreement requirements are detailed in DFARS 219.7103."
+            },
+            {
+                term: "Developmental Assistance",
+                type: "Process",
+                definition: "Business support, technical training, and management assistance provided by Mentor to help Protégé improve capabilities.",
+                example: "Developmental assistance included quality system training, supply chain management, and access to facilities."
+            },
+            {
+                term: "DoD OSBP",
+                type: "Acronym",
+                definition: "Department of Defense Office of Small Business Programs – the DoD office administering the Mentor-Protégé Program.",
+                example: "DoD OSBP provides program guidance and approves all Mentor-Protégé Agreements."
+            },
+            {
+                term: "Documentation",
+                type: "Compliance",
+                definition: "Required records and evidence supporting all activities, expenses, and accomplishments under the agreement.",
+                example: "Documentation includes training records, financial invoices, performance metrics, and communications."
+            },
+            {
+                term: "Employment Growth",
+                type: "Metric",
+                definition: "An increase in the number of employees a firm has, often tracked as a program success indicator.",
+                example: "The Protégé achieved 40% employment growth from 25 to 35 employees during the agreement."
+            },
+            {
+                term: "Engagement Letter",
+                type: "Document",
+                definition: "An official document formalizing the relationship and commitment between Mentor and Protégé firms.",
+                example: "The engagement letter outlined the mentor's commitment to provide $200,000 in developmental assistance."
+            },
+            {
+                term: "Equipment Access",
+                type: "Process",
+                definition: "Providing the Protégé access to Mentor's facilities, tools, equipment, or technology for training and development.",
+                example: "The Mentor provided equipment access to allow the Protégé to learn advanced manufacturing processes."
+            },
+            {
+                term: "Escalation",
+                type: "Process",
+                definition: "Bringing unresolved issues to higher management levels when normal resolution processes fail.",
+                example: "A funding dispute was escalated to DoD OSBP for resolution."
+            },
+            {
+                term: "Evaluation Criteria",
+                type: "Process",
+                definition: "The specific standards used to assess proposal quality, including technical merit, past performance, and price.",
+                example: "Government evaluation criteria for the solicitation favored firms with quality certifications."
+            },
+            {
+                term: "FAR",
+                type: "Acronym",
+                definition: "Federal Acquisition Regulation – the primary rules governing federal procurement and contracting.",
+                example: "Both FAR and DFARS requirements apply to DoD Mentor-Protégé Agreements."
+            },
+            {
+                term: "Financial Management",
+                type: "Process",
+                definition: "The oversight and administration of all funding, reimbursements, and financial reporting for the agreement.",
+                example: "Financial management includes advance agreements, monthly invoicing, and annual financial audits."
+            },
+            {
+                term: "Financial Metrics",
+                type: "Metric",
+                definition: "Measurable financial indicators such as revenue growth, profitability, and cost reduction.",
+                example: "Financial metrics showed the Protégé achieved 25% revenue growth during the agreement period."
+            },
+            {
+                term: "Fiscal Year (FY)",
+                type: "Financial",
+                definition: "The federal government's budgeting period from October 1 through September 30.",
+                example: "The FY 2025 developmental assistance budget was established at $400,000."
+            },
+            {
+                term: "GAO",
+                type: "Acronym",
+                definition: "Government Accountability Office – the independent audit agency for the federal government.",
+                example: "GAO reviews can impact program policies and procedures."
+            },
+            {
+                term: "Good Standing",
+                type: "Compliance",
+                definition: "A firm's demonstrated compliance with all DoD and federal requirements including financial health and ethical practices.",
+                example: "Both firms must maintain good standing by submitting required reports and maintaining financial stability."
+            },
+            {
+                term: "Governance",
+                type: "Process",
+                definition: "The structure, policies, and procedures for managing and overseeing the agreement.",
+                example: "Agreement governance includes monthly progress meetings and quarterly compliance reviews."
+            },
+            {
+                term: "Growth Metrics",
+                type: "Metric",
+                definition: "Measurable indicators of Protégé development including revenue, employees, and capabilities.",
+                example: "Growth metrics documented 50% revenue increase, 30 new employees, and three new service offerings."
+            },
+            {
+                term: "HUBZONE",
+                type: "Program",
+                definition: "Historically Underutilized Business Zone program providing contracting opportunities for businesses in economically distressed areas.",
+                example: "The Protégé qualified for HUBZONE set-aside contracts in addition to regular competitive opportunities."
+            },
+            {
+                term: "Indirect Costs",
+                type: "Financial",
+                definition: "Overhead expenses not directly tied to a specific project, such as administrative and facility costs.",
+                example: "Indirect costs are allocated to the developmental assistance budget using established overhead rates."
+            },
+            {
+                term: "ISO Certification",
+                type: "Process",
+                definition: "Official qualification under international standards for quality management, environmental management, or safety.",
+                example: "The Protégé obtained ISO 9001:2015 certification for quality management systems."
+            },
+            {
+                term: "Joint Venture",
+                type: "Process",
+                definition: "A temporary partnership between Mentor and Protégé to bid on and perform contracts together.",
+                example: "A joint venture allowed the Mentor and Protégé to pursue a contract requiring combined expertise."
+            },
+            {
+                term: "Key Personnel",
+                type: "Process",
+                definition: "Critical employees identified in the proposal or agreement as essential to program success.",
+                example: "Key personnel included the Protégé's CEO, Operations Manager, and Quality Director."
+            },
+            {
+                term: "Knowledge Transfer",
+                type: "Process",
+                definition: "The sharing of skills, processes, and expertise from Mentor to Protégé through training and hands-on experience.",
+                example: "Knowledge transfer included training on lean manufacturing principles and quality audit procedures."
+            },
+            {
+                term: "Letter of Support",
+                type: "Document",
+                definition: "A formal document from the Protégé expressing commitment to the Mentor-Protégé relationship and proposed approach.",
+                example: "The Protégé's CEO signed a letter of support committing to active participation in all developmental activities."
+            },
+            {
+                term: "Long-term Relationship",
+                type: "Process",
+                definition: "The continuation of business and mentoring relationships beyond the formal agreement period.",
+                example: "Many firms maintain subcontracting relationships long after the Mentor-Protégé Agreement ends."
+            },
+            {
+                term: "Management Assistance",
+                type: "Process",
+                definition: "Business guidance and support in accounting, human resources, strategic planning, and operations.",
+                example: "Management assistance helped the Protégé establish financial controls and improve accounting procedures."
+            },
+            {
+                term: "Market Analysis",
+                type: "Process",
+                definition: "Research and analysis of potential business opportunities, customer needs, and competitive landscape.",
+                example: "Market analysis identified emerging demand for the Protégé's specialized engineering services."
+            },
+            {
+                term: "Mentor Firm",
+                type: "Role",
+                definition: "A large, established DoD contractor providing developmental assistance and business support to a Protégé firm.",
+                example: "A major prime contractor with $500M+ annual DoD revenue became Mentor to develop a small engineering firm."
+            },
+            {
+                term: "Mentor-Protégé Agreement",
+                type: "Document",
+                definition: "A formal contract outlining developmental assistance, timeline, performance metrics, and financial terms.",
+                example: "The 24-month Mentor-Protégé Agreement specified $500,000 in developmental costs and defined success metrics."
+            },
+            {
+                term: "Mentoring Activities",
+                type: "Process",
+                definition: "Specific actions and programs through which the Mentor provides support to the Protégé.",
+                example: "Mentoring activities included executive coaching, technical training, and quarterly business reviews."
+            },
+            {
+                term: "Milestone",
+                type: "Process",
+                definition: "A significant point or achievement in the agreement timeline marking progress toward objectives.",
+                example: "Key milestones included quality system certification (6 months) and first major contract award (12 months)."
+            },
+            {
+                term: "Minutes of Meeting",
+                type: "Documentation",
+                definition: "Official records of discussions, decisions, and action items from meetings between Mentor, Protégé, and DoD.",
+                example: "Meeting minutes documented progress on developmental assistance activities and any issues requiring resolution."
+            },
+            {
+                term: "Monitoring",
+                type: "Compliance",
+                definition: "Ongoing oversight to ensure the agreement is being implemented correctly and objectives are being met.",
+                example: "Program Managers monitor progress monthly through progress reports and quarterly review meetings."
+            },
+            {
+                term: "Mutual Benefit",
+                type: "Concept",
+                definition: "The principle that both Mentor and Protégé gain advantages from the Mentor-Protégé relationship.",
+                example: "Mutual benefit included the Mentor gaining access to specialized expertise and the Protégé gaining training and market access."
+            },
+            {
+                term: "Negotiation",
+                type: "Process",
+                definition: "The discussion and agreement process between Mentor, Protégé, and DoD to finalize agreement terms.",
+                example: "Negotiation determined the advance agreement terms, funding levels, and performance expectations."
+            },
+            {
+                term: "Network",
+                type: "Process",
+                definition: "The connections and relationships developed between firms, customers, and industry partners.",
+                example: "The Mentor's network provided the Protégé introductions to several potential government customers."
+            },
+            {
+                term: "Non-Compliance",
+                type: "Compliance",
+                definition: "Failure to meet agreement requirements, resulting in corrective action plans or potential termination.",
+                example: "Failure to submit required reports on time was considered non-compliance requiring immediate corrective action."
+            },
+            {
+                term: "Objectives",
+                type: "Process",
+                definition: "The specific goals and intended outcomes of the Mentor-Protégé Agreement.",
+                example: "Agreement objectives included ISO certification, 30% revenue growth, and five new contract awards."
+            },
+            {
+                term: "Oversight",
+                type: "Process",
+                definition: "The supervision and monitoring by DoD of Mentor-Protégé Agreements.",
+                example: "DoD oversight ensures compliance with program requirements and validates achievement of objectives."
+            },
+            {
+                term: "P&L (Profit & Loss)",
+                type: "Financial",
+                definition: "A financial statement showing a company's revenues, expenses, and net profit or loss.",
+                example: "The Protégé's P&L showed significant improvement due to developmental assistance and new contracts."
+            },
+            {
+                term: "Payroll",
+                type: "Financial",
+                definition: "The total amount paid to employees by a firm, used as a metric for company size and growth.",
+                example: "Payroll growth of 40% demonstrated the Protégé's expansion from 25 to 35 employees."
+            },
+            {
+                term: "Performance Metrics",
+                type: "Metric",
+                definition: "Measurable objectives (KPIs) established to track success of developmental assistance and Protégé improvement.",
+                example: "Performance metrics included revenue growth, contract awards, employee count, and quality certifications."
+            },
+            {
+                term: "Performance Monitoring",
+                type: "Compliance",
+                definition: "Regular review and assessment of how well firms are meeting agreement objectives and performance metrics.",
+                example: "Performance monitoring reviews tracked progress toward revenue growth targets and new market entry goals."
+            },
+            {
+                term: "Planning",
+                type: "Process",
+                definition: "The strategic development of the agreement approach, timeline, and resource allocation.",
+                example: "Planning identified the sequence of developmental activities and allocated the $500,000 budget across quarters."
+            },
+            {
+                term: "Prime Contractor",
+                type: "Role",
+                definition: "A major company holding a primary contract with the federal government, often serving as Mentor.",
+                example: "A prime contractor for defense systems mentors a small engineering firm to develop subcontracting relationships."
+            },
+            {
+                term: "Process Improvement",
+                type: "Process",
+                definition: "Enhancement of business procedures and operations to increase efficiency and effectiveness.",
+                example: "Process improvement initiatives reduced manufacturing defect rates by 60%."
+            },
+            {
+                term: "Program Manager",
+                type: "Role",
+                definition: "A DoD official responsible for overseeing agreements, reviewing compliance, and ensuring requirements are met.",
+                example: "The Program Manager approves developmental plans and monitors quarterly progress with both firms."
+            },
+            {
+                term: "Proposed Approach",
+                type: "Document",
+                definition: "A detailed description in the application outlining specific developmental assistance, timeline, and costs.",
+                example: "The proposed approach detailed six months of quality training followed by certification audit preparation."
+            },
+            {
+                term: "Protégé Firm",
+                type: "Role",
+                definition: "A small business receiving mentoring and developmental assistance under an approved agreement.",
+                example: "A small manufacturing company qualified as Protégé to develop capabilities for larger government contracts."
+            },
+            {
+                term: "Qualified Small Business",
+                type: "Classification",
+                definition: "A small business meeting SBA size standards and other eligibility requirements for Mentor-Protégé Program.",
+                example: "The Protégé qualified as a qualified small business with 45 employees in the manufacturing industry."
+            },
+            {
+                term: "Quality Assurance",
+                type: "Process",
+                definition: "Systematic activities to ensure products or services meet established quality standards.",
+                example: "Quality assurance procedures included inspection protocols and statistical process control methods."
+            },
+            {
+                term: "Quality Management System (QMS)",
+                type: "Process",
+                definition: "A formal system of policies and procedures ensuring consistent quality in products or services.",
+                example: "ISO 9001 QMS implementation improved customer satisfaction scores by 45%."
+            },
+            {
+                term: "Quarterly Review",
+                type: "Process",
+                definition: "A formal assessment conducted four times per year to review progress and address issues.",
+                example: "Quarterly reviews tracked developmental activities completed, expenditures, and progress toward objectives."
+            },
+            {
+                term: "Reimbursement",
+                type: "Financial",
+                definition: "Payment by DoD to reimburse allowable costs incurred by Mentor for developmental assistance.",
+                example: "The Mentor submitted invoices for $50,000 in quarterly reimbursement for training and travel costs."
+            },
+            {
+                term: "Reporting",
+                type: "Compliance",
+                definition: "Regular submission of progress reports, financial statements, and compliance documentation.",
+                example: "Reporting requirements included monthly progress updates and annual comprehensive compliance reports."
+            },
+            {
+                term: "Request for Proposal (RFP)",
+                type: "Process",
+                definition: "A government solicitation requesting competitive proposals from firms to perform specific work.",
+                example: "The Mentor helped the Protégé prepare a response to a $3M defense systems RFP."
+            },
+            {
+                term: "Revenue Growth",
+                type: "Metric",
+                definition: "An increase in total sales or income generated by the firm, commonly used to measure program success.",
+                example: "The Protégé achieved 50% revenue growth from $2M to $3M during the agreement period."
+            },
+            {
+                term: "SBA",
+                type: "Acronym",
+                definition: "Small Business Administration – the federal agency establishing size standards and overseeing small business programs.",
+                example: "The SBA determines size standards that qualify a firm as eligible for the Mentor-Protégé Program."
+            },
+            {
+                term: "Schedule",
+                type: "Document",
+                definition: "A timeline showing when developmental activities and milestones will occur during the agreement.",
+                example: "The schedule sequenced quality training (months 1-6), certification audit (months 7-9), and market development (months 10-24)."
+            },
+            {
+                term: "Set-Aside Contract",
+                type: "Process",
+                definition: "A government contract reserved exclusively for small businesses to compete for.",
+                example: "The Protégé competed for a small business set-aside contract without competition from large firms."
+            },
+            {
+                term: "Site Visit",
+                type: "Compliance",
+                definition: "An in-person visit by Program Manager or auditor to verify activities, facilities, and compliance.",
+                example: "The annual compliance site visit confirmed the Protégé had implemented all required quality system improvements."
+            },
+            {
+                term: "Small Business",
+                type: "Classification",
+                definition: "A business concern meeting SBA size standards based on industry, typically 500-1,500 employees maximum.",
+                example: "The 45-employee manufacturing firm qualified as a small business under SBA size standards."
+            },
+            {
+                term: "Sole Source",
+                type: "Process",
+                definition: "A procurement situation where only one firm is able to provide required services or products.",
+                example: "The Protégé secured a sole source contract for specialized welding services."
+            },
+            {
+                term: "Sponsor",
+                type: "Role",
+                definition: "The government activity (agency, command) that initiated and supports a Mentor-Protégé Agreement.",
+                example: "The Army Contracting Command sponsored the Mentor-Protégé Agreement."
+            },
+            {
+                term: "Staffing Plan",
+                type: "Document",
+                definition: "A detailed description of key personnel and organizational structure required to execute the agreement.",
+                example: "The staffing plan identified the Protégé's CEO as the primary contact and Quality Director as responsible for certification."
+            },
+            {
+                term: "Subcontracting",
+                type: "Process",
+                definition: "When a prime contractor awards work to smaller firms as subcontractors on government contracts.",
+                example: "The Mentor awarded the Protégé a subcontract for 20% of a $5M defense contract."
+            },
+            {
+                term: "Subcontracting Credit",
+                type: "Financial",
+                definition: "Alternative to cost reimbursement where Mentor receives credit toward federal subcontracting goals.",
+                example: "The Mentor chose subcontracting credit worth 50% of developmental assistance costs toward its goals."
+            },
+            {
+                term: "Subcontracting Goal",
+                type: "Financial",
+                definition: "A federally-mandated percentage target for awarding contracts to small businesses (typically 23-25%).",
+                example: "A prime contractor with $10M in DoD contracts has a $2.3M subcontracting goal to small businesses."
+            },
+            {
+                term: "Success Metrics",
+                type: "Metric",
+                definition: "Specific, measurable criteria determining whether the Mentor-Protégé Agreement achieved its objectives.",
+                example: "Success metrics included ISO certification, 30% revenue growth, and three new major contracts."
+            },
+            {
+                term: "Supply Chain",
+                type: "Process",
+                definition: "The network of suppliers, manufacturers, and distributors involved in producing and delivering products.",
+                example: "Supply chain improvement activities enhanced the Protégé's supplier relationships and delivery performance."
+            },
+            {
+                term: "Sustainability",
+                type: "Concept",
+                definition: "The long-term viability and independence of the Protégé after the agreement ends.",
+                example: "Sustainability is achieved when the Protégé can compete successfully independently without Mentor support."
+            },
+            {
+                term: "Synergy",
+                type: "Concept",
+                definition: "The combined strengths and capabilities of Mentor and Protégé creating greater value than acting separately.",
+                example: "Synergy was demonstrated when joint proposals combined the Mentor's customer relationships with the Protégé's technical expertise."
+            },
+            {
+                term: "Technical Assistance",
+                type: "Process",
+                definition: "Specialized expertise in technical areas such as manufacturing, engineering, IT, or product development.",
+                example: "Technical assistance included aerospace welding certification training for 15 Protégé employees."
+            },
+            {
+                term: "Technical Capabilities",
+                type: "Process",
+                definition: "The specific skills, knowledge, and technical expertise of a firm in particular areas.",
+                example: "The Mentor enhanced the Protégé's technical capabilities in advanced composites manufacturing."
+            },
+            {
+                term: "Term",
+                type: "Document",
+                definition: "The duration or length of the Mentor-Protégé Agreement, typically 24-36 months.",
+                example: "The agreement term was 24 months with an optional 12-month extension based on performance."
+            },
+            {
+                term: "Termination for Convenience",
+                type: "Process",
+                definition: "Either party's ability to end the agreement with appropriate notice when circumstances change.",
+                example: "The agreement could be terminated for convenience by either party with 30 days written notice."
+            },
+            {
+                term: "Training",
+                type: "Process",
+                definition: "Educational programs and instruction provided to develop Protégé employees' skills and knowledge.",
+                example: "Training programs included leadership development, technical certifications, and industry-specific skill courses."
+            },
+            {
+                term: "Transition Plan",
+                type: "Document",
+                definition: "A documented strategy for the Protégé to operate independently after the agreement ends.",
+                example: "The transition plan outlined how the Protégé would maintain quality systems and manage customer relationships independently."
+            },
+            {
+                term: "Vendor Relations",
+                type: "Process",
+                definition: "The management and development of relationships with suppliers and vendors.",
+                example: "Vendor relations improvement helped the Protégé negotiate better pricing and payment terms."
+            },
+            {
+                term: "Verification",
+                type: "Compliance",
+                definition: "The confirmation through documentation or audit that activities and claims are accurate and valid.",
+                example: "Auditors verify all claimed developmental costs against supporting invoices and timesheets."
+            },
+            {
+                term: "Women-Owned Small Business (WOSB)",
+                type: "Program",
+                definition: "A small business at least 51% owned and controlled by women, eligible for set-aside contracts.",
+                example: "The Protégé qualified as a WOSB and could compete for women-owned business set-aside contracts."
+            },
+            {
+                term: "Written Agreement",
+                type: "Document",
+                definition: "The formal, signed document establishing all terms and conditions of the Mentor-Protégé relationship.",
+                example: "The written agreement detailed all developmental activities, timelines, funding, and performance metrics."
+            }
+        ];
+
+        // Create audio context for click sound
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+        function playClickSound() {
+            const now = audioContext.currentTime;
+            const osc = audioContext.createOscillator();
+            const gain = audioContext.createGain();
+
+            osc.connect(gain);
+            gain.connect(audioContext.destination);
+
+            osc.frequency.setValueAtTime(800, now);
+            osc.frequency.exponentialRampToValueAtTime(200, now + 0.1);
+
+            gain.gain.setValueAtTime(0.3, now);
+            gain.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
+
+            osc.start(now);
+            osc.stop(now + 0.1);
+        }
+
+        
+        // Text-to-Speech function for term pronunciation
+        function speakTerm(termName) {
+            // Cancel any ongoing speech
+            window.speechSynthesis.cancel();
+            
+            // Create utterance with just the term name
+            const utterance = new SpeechSynthesisUtterance(termName);
+            
+            // Configure speech settings
+            utterance.rate = 0.95; // Slightly slower for clarity
+            utterance.pitch = 1.0;
+            utterance.volume = 1.0;
+            
+            // Speak the term
+            window.speechSynthesis.speak(utterance);
+        }
+        // Build grid
+        function buildGrid() {
+            const gridContainer = document.getElementById('gridContainer');
+            const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+
+            // Group terms by first letter
+            const letterMap = {};
+            letters.forEach(letter => {
+                letterMap[letter] = glossaryData.filter(item =>
+                    item.term.toUpperCase().startsWith(letter)
+                );
+            });
+
+            letters.forEach(letter => {
+                const box = document.createElement('div');
+                box.className = 'letter-box';
+                const hasTerms = letterMap[letter].length > 0;
+
+                if (!hasTerms) {
+                    box.classList.add('disabled');
+                }
+
+                box.innerHTML = `<span>${letter}</span>`;
+
+                if (hasTerms) {
+                    box.addEventListener('click', () => showTermsModal(letter, letterMap[letter]));
+                }
+
+                gridContainer.appendChild(box);
+            });
+        }
+
+        function showTermsModal(letter, terms) {
+            playClickSound();
+
+            const sorted = terms.sort((a, b) => a.term.localeCompare(b.term));
+
+            document.getElementById('modalLetter').textContent = letter;
+            document.getElementById('termsCount').textContent = `${sorted.length} term${sorted.length !== 1 ? 's' : ''} found`;
+
+            const termsList = document.getElementById('termsList');
+            termsList.innerHTML = '';
+
+            sorted.forEach(term => {
+                const termDiv = document.createElement('div');
+                termDiv.className = 'term-item';
+                termDiv.textContent = term.term;
+                termDiv.addEventListener('click', () => showDefinition(term));
+                termsList.appendChild(termDiv);
+            });
+
+            document.getElementById('modalOverlay').classList.add('active');
+        }
+
+        function showDefinition(term) {
+            playClickSound();
+            speakTerm(term.term);
+
+            document.getElementById('panelTermTitle').textContent = term.term;
+            document.getElementById('termTypeBadge').textContent = term.type;
+            document.getElementById('panelDefinition').innerHTML = `<strong>Definition:</strong><br>${term.definition}`;
+
+            const exampleBox = document.getElementById('exampleBox');
+            exampleBox.innerHTML = `
+                <div class="example-label">Example:</div>
+                <div>${term.example}</div>
+            `;
+
+            document.getElementById('definitionPanel').classList.add('active');
+        }
+
+        // Close modal
+        document.getElementById('closeModalBtn').addEventListener('click', () => {
+            document.getElementById('modalOverlay').classList.remove('active');
+        });
+
+        document.getElementById('modalOverlay').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('modalOverlay')) {
+                document.getElementById('modalOverlay').classList.remove('active');
+            }
+        });
+
+        // Close panel
+        document.getElementById('closePanelBtn').addEventListener('click', () => {
+            document.getElementById('definitionPanel').classList.remove('active');
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.getElementById('modalOverlay').classList.remove('active');
+                document.getElementById('definitionPanel').classList.remove('active');
+            }
+        });
+
+        // Initialize
+        buildGrid();
+    </script>
+</body>
+</html>

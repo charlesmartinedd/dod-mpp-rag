@@ -1,0 +1,54 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+*.egg-info/
+dist/
+build/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# RAG System specific
+# Exclude FAISS index (can be regenerated)
+data/faiss_index/
+*.faiss
+*.pkl
+
+# Exclude PDF documents (add your own)
+../Core Documents/*.pdf
+../Modules/*.pdf
+
+# Exclude large model caches
+.cache/
+
+# Streamlit
+.streamlit/
+
+# Environment variables
+.env
+.env.local
+
+# Logs
+*.log
+logs/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pytest
+.pytest_cache/

@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MPP Training Program - Strategic Overview</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy-primary: #0a1f44;
+            --navy-secondary: #1e3a5f;
+            --gold-accent: #d4af37;
+            --white: #ffffff;
+            --light-gray: #f4f4f4;
+            --medium-gray: #6c757d;
+            --dark-gray: #2c3e50;
+            --success-green: #2d5016;
+            --timeline-blue: #4a90e2;
+            --benefits-purple: #6a4c93;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, var(--navy-primary) 0%, var(--navy-secondary) 100%);
+            color: var(--dark-gray);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            background: rgba(10, 31, 68, 0.98);
+            color: var(--white);
+            padding: 1.5rem 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+        .header-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, var(--white), var(--gold-accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.3rem;
+        }
+
+        .header-subtitle {
+            font-size: 0.95rem;
+            color: var(--gold-accent);
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: var(--white);
+            padding: 1.5rem 2rem;
+            margin: 1.5rem auto;
+            max-width: 1200px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .hero-section h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.9rem;
+            color: var(--navy-primary);
+            margin-bottom: 0.8rem;
+            line-height: 1.3;
+        }
+
+        .hero-section p {
+            font-size: 1rem;
+            color: var(--medium-gray);
+            max-width: 900px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .section-divider {
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(to right, var(--gold-accent), var(--timeline-blue));
+            margin: 1rem auto;
+            border-radius: 10px;
+        }
+
+        /* 5 W's + Benefits Grid */
+        .exploration-section {
+            max-width: 1200px;
+            margin: 1.5rem auto 2rem;
+            padding: 0 2rem;
+        }
+
+        .exploration-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.7rem;
+            color: var(--white);
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .exploration-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .explore-card:nth-child(1),
+        .explore-card:nth-child(2),
+        .explore-card:nth-child(3) {
+            width: calc(33.333% - 1rem);
+        }
+
+        .explore-card:nth-child(4),
+        .explore-card:nth-child(5) {
+            width: calc(33.333% - 1rem);
+        }
+
+        .explore-card {
+            background: var(--white);
+            padding: 1.5rem 1.2rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 3px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .explore-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(to right, var(--gold-accent), var(--timeline-blue));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .explore-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .explore-card:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 20px 50px rgba(212, 175, 55, 0.4);
+            border-color: var(--gold-accent);
+        }
+
+        .explore-card.benefits-card {
+            width: 100%;
+            background: linear-gradient(135deg, var(--benefits-purple), #8e6bb1);
+            color: var(--white);
+            padding: 1.8rem 2rem;
+        }
+
+        .explore-card.benefits-card::before {
+            background: linear-gradient(to right, var(--white), var(--gold-accent));
+        }
+
+        .explore-card.benefits-card:hover {
+            border-color: var(--white);
+            box-shadow: 0 20px 50px rgba(106, 76, 147, 0.5);
+        }
+
+        .explore-card.benefits-card .explore-letter {
+            color: var(--white);
+        }
+
+        .explore-card.benefits-card .explore-title {
+            color: var(--white);
+        }
+
+        .explore-card.benefits-card .explore-subtitle {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .explore-icon {
+            font-size: 2.2rem;
+            margin-bottom: 0.8rem;
+            display: block;
+            filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.15));
+        }
+
+        .explore-letter {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.7rem;
+            font-weight: 800;
+            color: var(--navy-primary);
+            margin-bottom: 0.2rem;
+            display: block;
+        }
+
+        .explore-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            color: var(--timeline-blue);
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+        }
+
+        .explore-subtitle {
+            font-size: 0.8rem;
+            color: var(--medium-gray);
+            font-style: italic;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(10, 31, 68, 0.95);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+            padding: 2rem;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 3.5rem 3.5rem;
+            max-width: 1000px;
+            width: 100%;
+            max-height: 85vh;
+            overflow-y: auto;
+            position: relative;
+            transform: scale(0.7) translateY(-50px);
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 30px 90px rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: var(--navy-primary);
+            color: var(--white);
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-close:hover {
+            background: var(--gold-accent);
+            color: var(--navy-primary);
+            transform: rotate(90deg);
+        }
+
+        .modal-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            border-bottom: 3px solid var(--gold-accent);
+            padding-bottom: 1.5rem;
+        }
+
+        .modal-icon {
+            font-size: 4.5rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .modal-letter {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--navy-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.2rem;
+            color: var(--timeline-blue);
+            font-weight: 700;
+        }
+
+        .modal-body {
+            line-height: 1.9;
+        }
+
+        .modal-body h3 {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--navy-primary);
+            font-size: 1.5rem;
+            margin: 1.8rem 0 1rem;
+            border-left: 5px solid var(--gold-accent);
+            padding-left: 1rem;
+        }
+
+        .modal-body p {
+            font-size: 1.15rem;
+            color: var(--dark-gray);
+            margin-bottom: 1.3rem;
+        }
+
+        .modal-body ul {
+            list-style: none;
+            padding-left: 0;
+            margin: 1.3rem 0;
+        }
+
+        .modal-body li {
+            padding: 0.9rem 1.3rem;
+            background: var(--light-gray);
+            margin-bottom: 0.8rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--timeline-blue);
+            font-size: 1.1rem;
+        }
+
+        .modal-body li strong {
+            color: var(--navy-primary);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(10, 31, 68, 0.95);
+            color: var(--white);
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        footer p {
+            font-size: 0.9rem;
+            color: var(--medium-gray);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .explore-card:nth-child(1),
+            .explore-card:nth-child(2),
+            .explore-card:nth-child(3),
+            .explore-card:nth-child(4),
+            .explore-card:nth-child(5) {
+                width: calc(50% - 1rem);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .explore-card:nth-child(1),
+            .explore-card:nth-child(2),
+            .explore-card:nth-child(3),
+            .explore-card:nth-child(4),
+            .explore-card:nth-child(5) {
+                width: 100%;
+            }
+
+            .header-title {
+                font-size: 1.5rem;
+            }
+
+            .hero-section h1 {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--light-gray);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--gold-accent);
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--navy-primary);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="header-title">DoD Mentor-Protégé Program</div>
+            <div class="header-subtitle">Program Manager Training Initiative</div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <div class="hero-section fade-in-up">
+        <h1>Strategic Training Framework for MPP Program Managers</h1>
+        <div class="section-divider"></div>
+        <p>
+            This comprehensive online training program equips Department of Defense Mentor Protégé Program Managers
+            with essential competencies in Mentor-Protégé Program administration, MPP Standard Operating
+            Procedures, and DFARS Appendix I compliance requirements.
+        </p>
+    </div>
+
+    <!-- Exploration Section -->
+    <section class="exploration-section">
+        <h2 class="exploration-title">Training Overview</h2>
+        <div class="exploration-grid">
+            <!-- WHO -->
+            <div class="explore-card" onclick="openModal('who')">
+                <span class="explore-icon">👥</span>
+                <span class="explore-letter">WHO</span>
+                <div class="explore-title">Who</div>
+                <div class="explore-subtitle">Target audience</div>
+            </div>
+
+            <!-- WHAT -->
+            <div class="explore-card" onclick="openModal('what')">
+                <span class="explore-icon">📚</span>
+                <span class="explore-letter">WHAT</span>
+                <div class="explore-title">What</div>
+                <div class="explore-subtitle">Training content</div>
+            </div>
+
+            <!-- WHEN -->
+            <div class="explore-card" onclick="openModal('when')">
+                <span class="explore-icon">⏰</span>
+                <span class="explore-letter">WHEN</span>
+                <div class="explore-title">When</div>
+                <div class="explore-subtitle">Application timeline</div>
+            </div>
+
+            <!-- WHERE -->
+            <div class="explore-card" onclick="openModal('where')">
+                <span class="explore-icon">🌐</span>
+                <span class="explore-letter">WHERE</span>
+                <div class="explore-title">Where</div>
+                <div class="explore-subtitle">Delivery platform</div>
+            </div>
+
+            <!-- WHY -->
+            <div class="explore-card" onclick="openModal('why')">
+                <span class="explore-icon">🎯</span>
+                <span class="explore-letter">WHY</span>
+                <div class="explore-title">Why</div>
+                <div class="explore-subtitle">Strategic justification</div>
+            </div>
+
+            <!-- BENEFITS -->
+            <div class="explore-card benefits-card" onclick="openModal('benefits')">
+                <span class="explore-icon">✨</span>
+                <span class="explore-letter">BENEFITS</span>
+                <div class="explore-title">Training Benefits & Outcomes</div>
+                <div class="explore-subtitle">Click to explore measurable impacts</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Office of Small Business Programs | Department of Defense</p>
+        <p>Classification: UNCLASSIFIED | For Official Use Only</p>
+    </footer>
+
+    <!-- Modals -->
+    <div id="modal-who" class="modal-overlay" onclick="closeModal('who')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('who')">&times;</button>
+            <div class="modal-header">
+                <span class="modal-icon">👥</span>
+                <div class="modal-letter">WHO</div>
+                <div class="modal-title">Target Audience</div>
+            </div>
+            <div class="modal-body">
+                <h3>Primary Audience</h3>
+                <p>
+                    This training initiative targets <strong>Department of Defense Mentor Protégé Program Managers</strong>.
+                    They manage their Mentor Protégé programs at their DoD Services or Agencies. These personnel require
+                    an in depth knowledge of the DFARS Appendix I, the MPP SOP and other Regulatory Guidance to fulfill
+                    their roles and responsibilities effectively.
+                </p>
+
+                <h3>Key Stakeholder Groups</h3>
+                <ul>
+                    <li><strong>Mentor Protégé Program Managers</strong> - Primary beneficiaries gaining critical MPP competency</li>
+                    <li><strong>Mentor Organizations</strong> - Receive improved support and expedited approvals</li>
+                    <li><strong>Protégé Firms</strong> - Benefit from knowledgeable oversight and guidance</li>
+                    <li><strong>OSBP Personnel</strong> - Experience reduced administrative burden and improved efficiency</li>
+                    <li><strong>Contracting Officers</strong> - Gain partners with enhanced MPP expertise</li>
+                    <li><strong>Small Business Specialists</strong> - Collaborate with better-informed MPP Program Managers</li>
+                </ul>
+
+                <h3>Training Development Team</h3>
+                <p>
+                    Subject matter experts from the Office of Small Business Programs developed this
+                    curriculum based on extensive regulatory expertise, operational experience, and
+                    documented performance gaps requiring institutional remediation.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-what" class="modal-overlay" onclick="closeModal('what')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('what')">&times;</button>
+            <div class="modal-header">
+                <span class="modal-icon">📚</span>
+                <div class="modal-letter">WHAT</div>
+                <div class="modal-title">Training Content</div>
+            </div>
+            <div class="modal-body">
+                <h3>Comprehensive Curriculum</h3>
+                <p>
+                    The training program addresses all critical aspects of Mentor-Protégé Program
+                    administration required for effective MPP Program Manager performance:
+                </p>
+
+                <ul>
+                    <li><strong>MPP Standard Operating Procedures</strong> - Complete operational protocols and procedural frameworks</li>
+                    <li><strong>DFARS Appendix I Requirements</strong> - Detailed regulatory compliance standards and obligations</li>
+                    <li><strong>MPP Program Manager Responsibilities</strong> - Managing agreements and financial accountability; coordinating policy implementation and real-time oversight; strategic program alignment and performance improvement</li>
+                    <li><strong>Agreement Review Protocols</strong> - Step-by-step evaluation and approval processes</li>
+                    <li><strong>Compliance Verification Methods</strong> - Techniques for ensuring regulatory adherence</li>
+                    <li><strong>Common Deficiencies</strong> - Frequently identified errors and preventive strategies</li>
+                    <li><strong>Best Practice Standards</strong> - Proven methodologies from successful program implementations</li>
+                    <li><strong>Case Study Analysis</strong> - Real-world scenarios and decision-making frameworks</li>
+                </ul>
+
+                <h3>Instructional Methodology</h3>
+                <p>
+                    Content delivery employs professional learning principles through interactive modules
+                    combining video instruction, regulatory document analysis, practical exercises,
+                    knowledge assessments, and job aids designed for immediate workplace application.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-when" class="modal-overlay" onclick="closeModal('when')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('when')">&times;</button>
+            <div class="modal-header">
+                <span class="modal-icon">⏰</span>
+                <div class="modal-letter">WHEN</div>
+                <div class="modal-title">Application Timeline</div>
+            </div>
+            <div class="modal-body">
+                <h3>Recommended Completion Requirement</h3>
+                <p>
+                    MPP Program Managers should complete this training <strong>within 30 days of assignment
+                    to appointed position</strong>. This is also an annual requirement. This ensures baseline
+                    competency exists prior to executing oversight responsibilities.
+                </p>
+
+                <h3>Critical Application Points</h3>
+                <p>
+                    MPP Program Managers apply acquired knowledge throughout the acquisition lifecycle:
+                </p>
+                <ul>
+                    <li><strong>MPA Planning Phase</strong> - Evaluating MPP opportunity identification and integration</li>
+                    <li><strong>Pre-Award Activities</strong> - Reviewing proposed Mentor-Protégé agreement submissions</li>
+                    <li><strong>Agreement Coordination</strong> - Facilitating OSBP approval processes and documentation</li>
+                    <li><strong>Post-Award Administration</strong> - Monitoring agreement implementation and performance</li>
+                    <li><strong>Annual Compliance Reviews</strong> - Assessing program adherence and effectiveness</li>
+                    <li><strong>Modification Processing</strong> - Evaluating proposed changes to existing agreements</li>
+                    <li><strong>Closeout Procedures</strong> - Ensuring proper agreement closeout protocol</li>
+                </ul>
+
+                <h3>Time Investment</h3>
+                <p>
+                    The program requires approximately <strong>20 hours</strong> of self-paced learning.
+                    Participants may complete modules incrementally with automatic progress tracking
+                    and session resumption capabilities.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-where" class="modal-overlay" onclick="closeModal('where')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('where')">&times;</button>
+            <div class="modal-header">
+                <span class="modal-icon">🌐</span>
+                <div class="modal-letter">WHERE</div>
+                <div class="modal-title">Delivery Platform</div>
+            </div>
+            <div class="modal-body">
+                <h3>Online Learning Infrastructure</h3>
+                <p>
+                    Training is delivered through a <strong>secure, web-based learning management system</strong>
+                    providing 24/7 accessibility from any internet-connected location, enabling
+                    flexible completion around operational schedules.
+                </p>
+
+                <h3>Technical Specifications</h3>
+                <ul>
+                    <li><strong>Platform Architecture</strong> - Web-based application compatible with all modern browsers</li>
+                    <li><strong>Device Compatibility</strong> - Optimized for desktop, laptop, and tablet devices. Use of smartphones is not recommended.</li>
+                    <li><strong>Network Requirements</strong> - Standard internet connectivity (NIPR/unclassified access)</li>
+                    <li><strong>Authentication Method</strong> - CAC/PIV card or DoD-approved credential systems</li>
+                    <li><strong>Progress Tracking</strong> - Automated completion monitoring and reporting</li>
+                    <li><strong>Certificate Generation</strong> - Automated training completion documentation</li>
+                </ul>
+
+                <h3>Workplace Integration</h3>
+                <p>
+                    MPP Program Managers apply learned competencies directly within their operational
+                    environments during contract reviews, agreement evaluations, stakeholder coordination,
+                    and program oversight activities across organizational units.
+                </p>
+
+                <h3>Supplemental Resources</h3>
+                <p>
+                    Reference materials, decision matrices, procedural job aids, and OSBP subject
+                    matter expert contact information are accessible within the platform and
+                    available for download to individual workspaces.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-why" class="modal-overlay" onclick="closeModal('why')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('why')">&times;</button>
+            <div class="modal-header">
+                <span class="modal-icon">🎯</span>
+                <div class="modal-letter">WHY</div>
+                <div class="modal-title">Strategic Justification</div>
+            </div>
+            <div class="modal-body">
+                <h3>Mission-Critical Requirement</h3>
+                <p>
+                    The Mentor-Protégé Program serves as a <strong>strategic tool for strengthening
+                    defense industrial base resilience</strong>. MPP Program Manager competency directly
+                    impacts program effectiveness, small business capability development, and
+                    acquisition mission success.
+                </p>
+
+                <h3>Regulatory Compliance Mandate</h3>
+                <p>
+                    DFARS Appendix I establishes mandatory requirements governing MPP administration.
+                    Current MPP Program Manager knowledge deficiencies create <strong>significant compliance
+                    risks, audit exposure, and potential legal liability</strong> requiring immediate
+                    institutional intervention.
+                </p>
+
+                <h3>Operational Efficiency Gap</h3>
+                <p>
+                    Performance data demonstrates that <strong>preventable errors attributable to
+                    knowledge gaps can cause MPP agreement processing delays</strong>. These
+                    inefficiencies impose unnecessary burden on stakeholders and undermine program
+                    credibility.
+                </p>
+
+                <h3>Documented Performance Issues</h3>
+                <ul>
+                    <li><strong>Agreement Rejections</strong> - High rates of submission errors requiring rework</li>
+                    <li><strong>Processing Delays</strong> - Extended review cycles due to incomplete documentation</li>
+                    <li><strong>Compliance Findings</strong> - Audit deficiencies related to oversight gaps</li>
+                    <li><strong>Stakeholder Friction</strong> - Concerns expressed from Mentors and Protégés</li>
+                    <li><strong>OSBP Workload</strong> - Excessive time spent on reactive troubleshooting</li>
+                </ul>
+
+                <h3>Strategic Outcomes</h3>
+                <p>
+                    This training initiative addresses root causes rather than symptoms, establishing
+                    sustainable institutional capability that ensures <strong>MPP Program Managers possess
+                    requisite knowledge to execute their responsibilities effectively, efficiently,
+                    and in full regulatory compliance</strong>.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-benefits" class="modal-overlay" onclick="closeModal('benefits')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('benefits')">&times;</button>
+            <div class="modal-header">
+                <span class="modal-icon">✨</span>
+                <div class="modal-letter">BENEFITS</div>
+                <div class="modal-title">Training Benefits & Outcomes</div>
+            </div>
+            <div class="modal-body">
+                <h3>Measurable Organizational Benefits</h3>
+                <p>
+                    Implementation of this training program delivers quantifiable improvements across
+                    multiple performance dimensions:
+                </p>
+
+                <ul>
+                    <li><strong>Compliance Assurance</strong> - Ensures Department-wide adherence to DFARS requirements and MPP SOP protocols</li>
+                    <li><strong>Processing Efficiency</strong> - Reduces agreement review timelines through error elimination</li>
+                    <li><strong>Administrative Relief</strong> - Decreases OSBP staff burden through reduced reactive support</li>
+                    <li><strong>Audit Readiness</strong> - Minimizes compliance findings and regulatory concerns</li>
+                    <li><strong>Stakeholder Satisfaction</strong> - Improves Mentor and Protégé experience through knowledgeable oversight</li>
+                    <li><strong>Program Credibility</strong> - Enhances overall MPP operations and solidifies the permanency of the MPP program</li>
+                </ul>
+
+                <h3>Individual Performance Enhancement</h3>
+                <p>
+                    MPP Program Managers completing this training demonstrate improved capabilities:
+                </p>
+                <ul>
+                    <li><strong>Regulatory Knowledge</strong> - Comprehensive understanding of DFARS Appendix I requirements</li>
+                    <li><strong>Procedural Competency</strong> - Proficiency in MPP SOP application and execution</li>
+                    <li><strong>Risk Management</strong> - Ability to identify and mitigate compliance vulnerabilities</li>
+                    <li><strong>Decision Confidence</strong> - Enhanced judgment in agreement evaluation scenarios</li>
+                    <li><strong>Career Development</strong> - Specialized expertise valuable for professional advancement</li>
+                </ul>
+
+                <h3>Strategic Mission Impact</h3>
+                <p>
+                    Beyond immediate operational improvements, this initiative strengthens the
+                    <strong>defense industrial base through more effective Mentor-Protégé partnerships</strong>,
+                    enhanced small business capability development, and improved acquisition outcomes
+                    supporting national security objectives.
+                </p>
+
+                <h3>Institutional Sustainability</h3>
+                <p>
+                    The training establishes <strong>scalable, repeatable infrastructure</strong> ensuring
+                    all current and future MPP Program Managers receive consistent, high-quality education
+                    regardless of component affiliation, geographic location, or assignment timing.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal(modalId) {
+            const modal = document.getElementById('modal-' + modalId);
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById('modal-' + modalId);
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal on ESC key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                const activeModal = document.querySelector('.modal-overlay.active');
+                if (activeModal) {
+                    activeModal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            }
+        });
+
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in-up');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.explore-card').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MPP Training Initiative - Executive Overview</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy-primary: #0a1f44;
+            --navy-secondary: #1e3a5f;
+            --gold-accent: #d4af37;
+            --white: #ffffff;
+            --light-gray: #f4f4f4;
+            --medium-gray: #6c757d;
+            --dark-gray: #2c3e50;
+            --success-green: #2d5016;
+            --timeline-blue: #4a90e2;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, var(--navy-primary) 0%, var(--navy-secondary) 100%);
+            color: var(--dark-gray);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        header {
+            background: rgba(10, 31, 68, 0.95);
+            color: var(--white);
+            padding: 2rem 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            border-left: 5px solid var(--gold-accent);
+            padding-left: 1.5rem;
+        }
+
+        .header-subtitle {
+            font-size: 0.9rem;
+            color: var(--gold-accent);
+            margin-top: 0.5rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1.5rem;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+        }
+
+        nav a:hover {
+            border-color: var(--gold-accent);
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        nav a.active {
+            background: var(--gold-accent);
+            color: var(--navy-primary);
+            font-weight: 700;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 3rem auto;
+            padding: 0 2rem 4rem;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, var(--white), var(--light-gray));
+            padding: 4rem 3rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin-bottom: 3rem;
+            border-top: 5px solid var(--gold-accent);
+            text-align: center;
+        }
+
+        .hero-section h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3rem;
+            color: var(--navy-primary);
+            margin-bottom: 1rem;
+        }
+
+        .hero-section .tagline {
+            font-size: 1.3rem;
+            color: var(--medium-gray);
+            font-weight: 300;
+            margin-bottom: 2rem;
+        }
+
+        .section-divider {
+            width: 100px;
+            height: 4px;
+            background: var(--gold-accent);
+            margin: 2rem auto;
+        }
+
+        /* Executive Summary */
+        .summary-section {
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin-bottom: 3rem;
+        }
+
+        .summary-section h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            color: var(--navy-primary);
+            margin-bottom: 1.5rem;
+            border-left: 5px solid var(--gold-accent);
+            padding-left: 1rem;
+        }
+
+        .summary-section p {
+            font-size: 1.1rem;
+            line-height: 1.9;
+            color: var(--dark-gray);
+            margin-bottom: 1.5rem;
+        }
+
+        .summary-section ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .summary-section li {
+            padding: 1rem 1.5rem;
+            background: var(--light-gray);
+            margin-bottom: 1rem;
+            border-radius: 6px;
+            border-left: 4px solid var(--timeline-blue);
+            font-size: 1.05rem;
+        }
+
+        .summary-section li strong {
+            color: var(--navy-primary);
+        }
+
+        /* Benefits Grid */
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .benefit-card {
+            background: var(--white);
+            padding: 2.5rem 2rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-top: 4px solid var(--gold-accent);
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .benefit-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .benefit-card h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.3rem;
+            color: var(--navy-primary);
+            margin-bottom: 1rem;
+        }
+
+        .benefit-card p {
+            color: var(--medium-gray);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* Outcomes Section */
+        .outcomes-section {
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin-bottom: 3rem;
+        }
+
+        .outcomes-section h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            color: var(--navy-primary);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .outcome-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background: var(--light-gray);
+            border-radius: 8px;
+            border-left: 5px solid var(--success-green);
+        }
+
+        .outcome-number {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--gold-accent);
+            margin-right: 1.5rem;
+            min-width: 50px;
+        }
+
+        .outcome-content h4 {
+            font-size: 1.2rem;
+            color: var(--navy-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .outcome-content p {
+            color: var(--medium-gray);
+            line-height: 1.7;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--navy-primary), var(--navy-secondary));
+            padding: 4rem 3rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .cta-section h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            color: var(--white);
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            color: var(--light-gray);
+            margin-bottom: 2.5rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1.2rem 3rem;
+            background: var(--gold-accent);
+            color: var(--navy-primary);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .cta-button:hover {
+            background: var(--white);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
+        }
+
+        .cta-button.secondary {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--gold-accent);
+        }
+
+        .cta-button.secondary:hover {
+            background: var(--gold-accent);
+            color: var(--navy-primary);
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .contact-section h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            color: var(--navy-primary);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .contact-card {
+            padding: 2rem;
+            background: var(--light-gray);
+            border-radius: 8px;
+            border-left: 5px solid var(--timeline-blue);
+        }
+
+        .contact-card h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.3rem;
+            color: var(--navy-primary);
+            margin-bottom: 1rem;
+        }
+
+        .contact-card p {
+            color: var(--medium-gray);
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .contact-card a {
+            color: var(--timeline-blue);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .contact-card a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(10, 31, 68, 0.95);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+
+        footer p {
+            font-size: 0.9rem;
+            color: var(--medium-gray);
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-section h1 {
+                font-size: 2rem;
+            }
+
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            nav {
+                margin-top: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div>
+                <div class="header-title">MPP Training Initiative</div>
+                <div class="header-subtitle">Strategic Justification Framework</div>
+            </div>
+            <nav>
+                <a href="index.html">Strategic Rationale</a>
+                <a href="overview.html" class="active">Executive Overview</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <div class="hero-section">
+            <h1>Executive Overview</h1>
+            <p class="tagline">Comprehensive Mentor-Protégé Program Training for Program Managers</p>
+            <div class="section-divider"></div>
+        </div>
+
+        <!-- Executive Summary -->
+        <div class="summary-section">
+            <h2>Executive Summary</h2>
+            <p>
+                The Department of Defense Office of Small Business Programs proposes the immediate
+                implementation of a comprehensive, standardized training program for Program Managers
+                regarding their Mentor-Protégé Program (MPP) responsibilities, Standard Operating
+                Procedures (SOP), and DFARS Appendix I compliance requirements.
+            </p>
+            <p>
+                This initiative addresses a critical institutional gap that currently undermines program
+                effectiveness, increases compliance risk, and imposes unnecessary administrative burden
+                on oversight personnel. The proposed training program will establish baseline competency,
+                standardize procedures, and enable Program Managers to fulfill their regulatory obligations
+                with confidence and precision.
+            </p>
+            <h3 style="margin-top: 2rem; margin-bottom: 1rem; color: var(--navy-primary);">Key Imperatives</h3>
+            <ul>
+                <li><strong>Compliance Mandate:</strong> Ensure Department-wide adherence to DFARS requirements and SOP protocols</li>
+                <li><strong>Risk Mitigation:</strong> Eliminate preventable errors resulting from knowledge gaps</li>
+                <li><strong>Operational Efficiency:</strong> Reduce agreement processing delays and administrative rework</li>
+                <li><strong>Institutional Capability:</strong> Build sustainable Program Manager competency infrastructure</li>
+                <li><strong>Mission Readiness:</strong> Strengthen small business industrial base through effective program execution</li>
+            </ul>
+        </div>
+
+        <!-- Benefits Grid -->
+        <div class="benefits-grid">
+            <div class="benefit-card">
+                <div class="benefit-icon">📊</div>
+                <h3>Standardization</h3>
+                <p>Establish consistent Program Manager understanding and application of MPP requirements across all DoD components and service branches.</p>
+            </div>
+
+            <div class="benefit-card">
+                <div class="benefit-icon">⚡</div>
+                <h3>Efficiency</h3>
+                <p>Reduce agreement processing time by 40% through proactive Program Manager education and elimination of preventable errors.</p>
+            </div>
+
+            <div class="benefit-card">
+                <div class="benefit-icon">🛡️</div>
+                <h3>Compliance</h3>
+                <p>Ensure regulatory adherence and minimize audit findings through comprehensive DFARS Appendix I training and SOP implementation.</p>
+            </div>
+
+            <div class="benefit-card">
+                <div class="benefit-icon">💼</div>
+                <h3>Professional Development</h3>
+                <p>Enhance Program Manager acquisition competency and career progression through specialized small business program expertise.</p>
+            </div>
+
+            <div class="benefit-card">
+                <div class="benefit-icon">🎯</div>
+                <h3>Mission Impact</h3>
+                <p>Strengthen defense industrial base resilience through effective mentor-protégé relationships and small business capability development.</p>
+            </div>
+
+            <div class="benefit-card">
+                <div class="benefit-icon">📈</div>
+                <h3>Scalability</h3>
+                <p>Deploy technology-enabled training platform capable of supporting current workforce and onboarding future Program Managers.</p>
+            </div>
+        </div>
+
+        <!-- Expected Outcomes -->
+        <div class="outcomes-section">
+            <h2>Expected Outcomes</h2>
+
+            <div class="outcome-item">
+                <div class="outcome-number">01</div>
+                <div class="outcome-content">
+                    <h4>Immediate Competency Enhancement</h4>
+                    <p>
+                        Within 90 days of program launch, 100% of active Program Managers will complete
+                        baseline MPP training, establishing minimum competency standards and shared
+                        understanding of regulatory requirements.
+                    </p>
+                </div>
+            </div>
+
+            <div class="outcome-item">
+                <div class="outcome-number">02</div>
+                <div class="outcome-content">
+                    <h4>Reduced Administrative Burden</h4>
+                    <p>
+                        OSBP staff time dedicated to reactive Program Manager support and error remediation
+                        will decrease by 50%, enabling reallocation to strategic program development and
+                        stakeholder engagement activities.
+                    </p>
+                </div>
+            </div>
+
+            <div class="outcome-item">
+                <div class="outcome-number">03</div>
+                <div class="outcome-content">
+                    <h4>Accelerated Agreement Processing</h4>
+                    <p>
+                        Average MPP agreement review and approval timelines will improve by 40% through
+                        elimination of common submission errors, incomplete documentation, and procedural
+                        non-compliance requiring rework.
+                    </p>
+                </div>
+            </div>
+
+            <div class="outcome-item">
+                <div class="outcome-number">04</div>
+                <div class="outcome-content">
+                    <h4>Enhanced Audit Readiness</h4>
+                    <p>
+                        Department-wide MPP audit findings related to Program Manager oversight deficiencies
+                        will decrease to near-zero levels, demonstrating effective institutional knowledge
+                        transfer and compliance capability.
+                    </p>
+                </div>
+            </div>
+
+            <div class="outcome-item">
+                <div class="outcome-number">05</div>
+                <div class="outcome-content">
+                    <h4>Sustainable Infrastructure</h4>
+                    <p>
+                        Establishment of evergreen training curriculum with annual updates ensures ongoing
+                        Program Manager education aligns with regulatory changes, policy updates, and
+                        emerging best practices.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Call to Action -->
+        <div class="cta-section">
+            <h2>Path Forward</h2>
+            <p>
+                Executive approval and resource commitment are required to initiate this critical
+                capability development program. Immediate action positions the Department to address
+                current gaps while establishing sustainable infrastructure for long-term program excellence.
+            </p>
+            <div class="cta-buttons">
+                <a href="#" class="cta-button">Approve Initiative</a>
+                <a href="#" class="cta-button secondary">Schedule Briefing</a>
+                <a href="#" class="cta-button secondary">Request Detailed Plan</a>
+            </div>
+        </div>
+
+        <!-- Contact Information -->
+        <div class="contact-section">
+            <h2>Points of Contact</h2>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <h3>Program Director</h3>
+                    <p><strong>Office of Small Business Programs</strong></p>
+                    <p>Email: <a href="mailto:osbp.director@mail.mil">osbp.director@mail.mil</a></p>
+                    <p>Phone: (703) 555-0100</p>
+                    <p>Classification: UNCLASSIFIED</p>
+                </div>
+
+                <div class="contact-card">
+                    <h3>Chief of Staff</h3>
+                    <p><strong>Office of Small Business Programs</strong></p>
+                    <p>Email: <a href="mailto:osbp.cos@mail.mil">osbp.cos@mail.mil</a></p>
+                    <p>Phone: (703) 555-0101</p>
+                    <p>Classification: UNCLASSIFIED</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Office of Small Business Programs | Department of Defense</p>
+        <p>Classification: UNCLASSIFIED | For Official Use Only</p>
+    </footer>
+</body>
+</html>
