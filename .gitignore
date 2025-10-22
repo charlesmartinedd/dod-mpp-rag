@@ -46,6 +46,9 @@ data/faiss_index/
 .env
 .env.local
 
+# Claude agents (keep private)
+.claude/agents/
+
 # Logs
 *.log
 logs/
