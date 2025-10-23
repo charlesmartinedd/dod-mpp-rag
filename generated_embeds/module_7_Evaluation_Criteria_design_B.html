@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOP Reference</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+        }
+
+        .sop-reference-bar {
+            margin-top: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .sop-reference-header {
+            background: linear-gradient(135deg, #1e3a5f 0%, #2a5082 100%);
+            color: white;
+            padding: 12px 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.3s ease;
+        }
+
+        .sop-reference-header:hover {
+            background: linear-gradient(135deg, #2a5082 0%, #1e3a5f 100%);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header-icon {
+            width: 20px;
+            height: 20px;
+        }
+
+        .header-text {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .header-badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
+        .expand-icon {
+            width: 20px;
+            height: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .sop-reference-header.expanded .expand-icon {
+            transform: rotate(180deg);
+        }
+
+        .sop-reference-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            background: white;
+        }
+
+        .sop-reference-body.expanded {
+            max-height: 500px;
+        }
+
+        .reference-content {
+            padding: 20px;
+        }
+
+        .reference-card {
+            background: #f8f9fa;
+            border-left: 4px solid #0066cc;
+            padding: 14px;
+            border-radius: 6px;
+            margin-bottom: 12px;
+        }
+
+        .reference-card:last-child {
+            margin-bottom: 0;
+        }
+
+        .card-label {
+            color: #0066cc;
+            font-weight: 700;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        .card-location {
+            color: #1e3a5f;
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .card-description {
+            color: #555;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 768px) {
+            .header-text {
+                font-size: 13px;
+            }
+
+            .header-badge {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sop-reference-bar">
+        <div class="sop-reference-header" onclick="toggleReference(this)">
+            <div class="header-left">
+                <svg class="header-icon" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z"/>
+                </svg>
+                <span class="header-text">SOP Reference</span>
+                <span class="header-badge">2 refs</span>
+            </div>
+            <svg class="expand-icon" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+            </svg>
+        </div>
+        <div class="sop-reference-body">
+            <div class="reference-content">
+                
+                <div class="reference-card">
+                    <div class="card-label">MPP SOP</div>
+                    <div class="card-location">Section 8.2, Pages 81-85</div>
+                    <div class="card-description">
+                        Detailed evaluation rubrics and scoring
+                    </div>
+                </div>
+            
+
+                <div class="reference-card">
+                    <div class="card-label">Appendix VIII</div>
+                    <div class="card-location">Pages 42-48</div>
+                    <div class="card-description">
+                        Detailed evaluation rubrics and scoring
+                    </div>
+                </div>
+            
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleReference(header) {
+            const body = header.nextElementSibling;
+            header.classList.toggle('expanded');
+            body.classList.toggle('expanded');
+        }
+    </script>
+</body>
+</html>

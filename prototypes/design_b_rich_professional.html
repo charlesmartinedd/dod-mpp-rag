@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design B: Rich Professional - SOP Reference</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #1e3a5f;
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
+
+        .demo-note {
+            background: #fff3cd;
+            padding: 15px;
+            border-left: 4px solid #ff9800;
+            margin-bottom: 30px;
+            border-radius: 4px;
+        }
+
+        .demo-note h3 {
+            color: #e67e22;
+            margin-bottom: 8px;
+        }
+
+        .content-sample {
+            background: #fafafa;
+            padding: 20px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* SOP Reference Button - Richer Design */
+        .sop-reference-btn {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: white;
+            color: #1e3a5f;
+            padding: 16px 28px;
+            border: 2px solid #1e3a5f;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(30, 58, 95, 0.15);
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .sop-reference-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1e3a5f 0%, #2a5082 100%);
+            transition: left 0.4s ease;
+            z-index: -1;
+        }
+
+        .sop-reference-btn:hover::before {
+            left: 0;
+        }
+
+        .sop-reference-btn:hover {
+            color: white;
+            border-color: #2a5082;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(30, 58, 95, 0.25);
+        }
+
+        .sop-reference-btn svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .btn-badge {
+            background: #0066cc;
+            color: white;
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 700px;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4);
+            animation: slideUp 0.3s ease;
+            position: relative;
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #1e3a5f 0%, #2a5082 100%);
+            color: white;
+            padding: 28px 30px;
+            border-radius: 16px 16px 0 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .modal-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .modal-header h2 {
+            font-size: 24px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .modal-header-icon {
+            width: 32px;
+            height: 32px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-subtitle {
+            margin-top: 8px;
+            opacity: 0.9;
+            font-size: 14px;
+            font-weight: 400;
+            position: relative;
+            z-index: 1;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            font-size: 24px;
+            z-index: 2;
+        }
+
+        .close-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(90deg);
+        }
+
+        .modal-body {
+            padding: 32px;
+        }
+
+        /* Rich Reference Cards */
+        .reference-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .reference-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(180deg, #0066cc 0%, #2a5082 100%);
+        }
+
+        .reference-card:hover {
+            transform: translateX(4px);
+            box-shadow: 0 8px 24px rgba(0, 102, 204, 0.15);
+            border-color: #0066cc;
+        }
+
+        .reference-card:last-child {
+            margin-bottom: 0;
+        }
+
+        .reference-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .reference-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #0066cc 0%, #2a5082 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 18px;
+            box-shadow: 0 4px 12px rgba(0, 102, 204, 0.3);
+        }
+
+        .reference-title {
+            flex: 1;
+        }
+
+        .reference-label {
+            color: #0066cc;
+            font-weight: 700;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .reference-location {
+            color: #1e3a5f;
+            font-size: 20px;
+            font-weight: 700;
+            margin-top: 4px;
+        }
+
+        .reference-divider {
+            height: 1px;
+            background: linear-gradient(90deg, #dee2e6 0%, transparent 100%);
+            margin: 16px 0;
+        }
+
+        .reference-description {
+            color: #495057;
+            font-size: 15px;
+            line-height: 1.7;
+            margin-bottom: 12px;
+        }
+
+        .reference-context {
+            background: #e8f4f8;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #0066cc;
+            display: flex;
+            align-items: start;
+            gap: 8px;
+        }
+
+        .reference-context svg {
+            width: 16px;
+            height: 16px;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .modal-content {
+                width: 95%;
+                max-height: 90vh;
+            }
+
+            .modal-header {
+                padding: 24px 20px;
+            }
+
+            .modal-header h2 {
+                font-size: 20px;
+            }
+
+            .modal-body {
+                padding: 24px 20px;
+            }
+
+            .reference-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Design B: Rich Professional</h1>
+
+        <div class="demo-note">
+            <h3>About This Design</h3>
+            <p><strong>Style:</strong> Professional with rich visual details and context</p>
+            <p><strong>Best For:</strong> Providing comprehensive reference information</p>
+            <p><strong>Features:</strong> Icon-enhanced cards with detailed context and visual hierarchy</p>
+        </div>
+
+        <div class="content-sample">
+            <h2>Sample Lesson Content</h2>
+            <p>The DoD Mentor-Protégé Program is designed to foster business relationships between prime contractors and small businesses. This program provides developmental assistance to enhance the capabilities of protégé firms...</p>
+
+            <button class="sop-reference-btn" onclick="openModal()">
+                <svg fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z"/>
+                </svg>
+                Reference Documentation
+                <span class="btn-badge">2</span>
+            </button>
+
+            <p>...and develop increased capabilities through technology transfer, financial assistance, and business development support.</p>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modalOverlay" onclick="closeModalOnOverlay(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h2>
+                    <div class="modal-header-icon">
+                        <svg fill="currentColor" viewBox="0 0 20 20" style="width: 20px; height: 20px;">
+                            <path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z"/>
+                        </svg>
+                    </div>
+                    SOP Reference Guide
+                </h2>
+                <div class="modal-subtitle">Find this information in your official documentation</div>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="reference-card">
+                    <div class="reference-header">
+                        <div class="reference-icon">SOP</div>
+                        <div class="reference-title">
+                            <div class="reference-label">MPP Standard Operating Procedures</div>
+                            <div class="reference-location">Section 1.2, Pages 8-10</div>
+                        </div>
+                    </div>
+
+                    <div class="reference-divider"></div>
+
+                    <div class="reference-description">
+                        <strong>Program Overview and Objectives</strong><br>
+                        This section provides a comprehensive overview of the Mentor-Protégé Program structure, eligibility requirements, and primary objectives.
+                    </div>
+
+                    <div class="reference-context">
+                        <svg fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+                        </svg>
+                        <span>You'll find detailed eligibility criteria and program structure definitions here</span>
+                    </div>
+                </div>
+
+                <div class="reference-card">
+                    <div class="reference-header">
+                        <div class="reference-icon">A-I</div>
+                        <div class="reference-title">
+                            <div class="reference-label">Appendix I</div>
+                            <div class="reference-location">Pages 1-3</div>
+                        </div>
+                    </div>
+
+                    <div class="reference-divider"></div>
+
+                    <div class="reference-description">
+                        <strong>Definitions and Program Structure</strong><br>
+                        Contains essential definitions, terminology, and the organizational framework of the MPP program.
+                    </div>
+
+                    <div class="reference-context">
+                        <svg fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+                        </svg>
+                        <span>Reference this for official definitions used throughout the program</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal() {
+            document.getElementById('modalOverlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('modalOverlay').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function closeModalOnOverlay(event) {
+            if (event.target === event.currentTarget) {
+                closeModal();
+            }
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>

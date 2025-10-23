@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compact Design A: Inline Link</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+            line-height: 1.6;
+        }
+
+        .demo-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+        }
+
+        .demo-header {
+            background: linear-gradient(135deg, #1e3a5f 0%, #2a5082 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 6px;
+            margin-bottom: 30px;
+        }
+
+        .demo-header h1 {
+            font-size: 22px;
+            margin-bottom: 8px;
+        }
+
+        .demo-header p {
+            font-size: 14px;
+            opacity: 0.95;
+        }
+
+        /* Simulated Rise Content */
+        .lesson-content {
+            background: #fafafa;
+            padding: 25px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+        }
+
+        .lesson-content h2 {
+            color: #1e3a5f;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .lesson-content p {
+            color: #333;
+            margin-bottom: 12px;
+        }
+
+        /* === COMPACT SOP REFERENCE - DESIGN A === */
+        .sop-reference-compact {
+            margin-top: 20px;
+            padding: 12px 16px;
+            background: linear-gradient(135deg, #e8f4f8 0%, #f0f8fc 100%);
+            border-left: 4px solid #0066cc;
+            border-radius: 6px;
+        }
+
+        .sop-reference-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #0066cc;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        .sop-reference-link:hover {
+            background: rgba(0, 102, 204, 0.1);
+            color: #004999;
+        }
+
+        .sop-reference-link svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 1000;
+            animation: fadeIn 0.2s ease;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 550px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.3s ease;
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #1e3a5f 0%, #2a5082 100%);
+            color: white;
+            padding: 20px 24px;
+            border-radius: 12px 12px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h3 {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .close-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            font-size: 20px;
+        }
+
+        .close-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(90deg);
+        }
+
+        .modal-body {
+            padding: 24px;
+        }
+
+        .reference-item {
+            background: #f8f9fa;
+            border-left: 4px solid #0066cc;
+            padding: 16px;
+            border-radius: 6px;
+            margin-bottom: 12px;
+        }
+
+        .reference-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .reference-label {
+            color: #0066cc;
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        .reference-location {
+            color: #1e3a5f;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .reference-description {
+            color: #555;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .modal-content {
+                width: 95%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <div class="demo-header">
+            <h1>Compact Design A: Inline Link</h1>
+            <p>Minimal footprint • Small reference bar • Clean modal popup</p>
+        </div>
+
+        <!-- Simulated Rise Lesson Content -->
+        <div class="lesson-content">
+            <h2>Program Eligibility</h2>
+            <p>The DoD Mentor-Protégé Program is designed to foster business relationships between prime contractors (mentors) and small businesses (protégés). This program provides developmental assistance to enhance the capabilities of protégé firms.</p>
+            <p>To participate as a mentor, organizations must meet specific eligibility requirements and demonstrate a commitment to developing their protégé's capabilities through various forms of assistance.</p>
+
+            <!-- === THIS IS THE COMPACT SOP REFERENCE === -->
+            <div class="sop-reference-compact">
+                <a class="sop-reference-link" onclick="openModal()">
+                    <svg fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z"/>
+                    </svg>
+                    Find this in SOP/Appendix I
+                </a>
+            </div>
+            <!-- === END SOP REFERENCE === -->
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modalOverlay" onclick="closeModalOnOverlay(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h3>SOP Reference</h3>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="reference-item">
+                    <div class="reference-label">MPP SOP</div>
+                    <div class="reference-location">Section 1.2, Pages 8-10</div>
+                    <div class="reference-description">
+                        Program overview and eligibility requirements
+                    </div>
+                </div>
+
+                <div class="reference-item">
+                    <div class="reference-label">Appendix I</div>
+                    <div class="reference-location">Pages 1-3</div>
+                    <div class="reference-description">
+                        Definitions and program structure
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal() {
+            document.getElementById('modalOverlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('modalOverlay').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function closeModalOnOverlay(event) {
+            if (event.target === event.currentTarget) {
+                closeModal();
+            }
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
